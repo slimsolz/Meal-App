@@ -7,7 +7,13 @@
     "start-dev": "nodemon server/app.js --exec babel-node",
     "build": "babel server -d server/dist --ignore server/dist",
     "serve": "node dist/index.js",
-    "test": "mocha server/tests/ --exit --compilers js:babel-register"
+    "test": "nyc --reporter=html --reporter=text mocha server/tests/ --exit --compilers js:babel-core/register",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "nyc": {
+    "exclude": [
+      "server/tests"
+    ]
   },
   "keywords": [],
   "author": "Odumah Solomon",
