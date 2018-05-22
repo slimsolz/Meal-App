@@ -1,4 +1,3 @@
-import { isEmail } from 'validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Model from '../models';
@@ -12,13 +11,6 @@ export default class UserController {
     const {
       email, username, password, role
     } = req.body;
-
-    if (!email || !username || !password) {
-      res.status(400).json({
-        status: 'error',
-        message: 'All fields are required'
-      });
-    }
 
     User.find({ where: { email: email.trim().toLowerCase() } })
       .then((userExists) => {
