@@ -1,4 +1,5 @@
 import express from 'express';
+import UserController from '../controllers/userController';
 
 const router = express.Router();
 
@@ -9,6 +10,9 @@ router.get('/', (req, res, next) => {
     message: 'Welcome to book-a-meal app'
   });
 });
+
+// User
+router.post('user/signup', UserController.signUp);
 
 // 404 page
 router.get('*', (req, res) => {

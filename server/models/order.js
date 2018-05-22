@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Order.associate = (models) => {
     // associations can be defined here
-    Order.belongsTo(models.user, {
+    Order.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
