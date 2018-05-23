@@ -11,6 +11,8 @@
     "no-unused-vars": [1, { "argsIgnorePattern": "res|next|^err" }],
     "comma-dangle": 0,
     "import/no-unresolved": "off",
-    "import/extensions": "off"
-  }
+    "import/extensions": "off",
+    "import/no-dynamic-require": 0
+  },
+  "parserOptions": {"ecmaVersion": 6}
 }
