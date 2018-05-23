@@ -14,6 +14,7 @@ router.get('/', (req, res, next) => {
 
 // User
 router.post('/auth/signup', Middleware.validateSignUp, UserController.signUp);
+router.post('/auth/signin', Middleware.validateSignIn, UserController.signIn);
 
 // 404 page
 router.get('*', (req, res) => {
