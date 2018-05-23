@@ -22,12 +22,9 @@ export default class UserController {
         }
         return null;
       }).catch((err) => {
-        res.status(500).json({
-          status: 'error',
-          message: 'Server error'
-        });
+        console.log(err);
       });
-       
+
     const hash = bcrypt.hashSync(password, 10);
     User.create({
       email: email.trim().toLowerCase(),
