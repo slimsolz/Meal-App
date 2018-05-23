@@ -50,3 +50,41 @@ describe('Validate Sign Up', () => {
       });
   });
 });
+
+describe('Validate Sign In', () => {
+  it('should send error if email is not valid', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'email',
+        password: 'bgbdcvbc'
+      })
+      .end((error, res) => {
+        expect(res.body.errors.email).to.equal('Enter a valid email');
+        done();
+      });
+  });
+  it('should send error if password is empty ', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'slim@ymail.com'
+      })
+      .end((error, res) => {
+        expect(res.body.errors.password).to.equal('password cannot be empty');
+        done();
+      });
+  });
+  it('should send error if password is empty ', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'slim@ymail.com',
+        password: ' '
+      })
+      .end((error, res) => {
+        expect(res.body.errors.password).to.equal('password must be at least 6 characters long');
+        done();
+      });
+  });
+});

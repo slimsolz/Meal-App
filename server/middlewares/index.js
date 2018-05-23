@@ -46,4 +46,32 @@ export default class Middleware {
       errors
     });
   }
+
+  static validateSignIn(req, res, next) {
+    const {
+      email, password
+    } = req.body;
+    const errors = {};
+
+    if (!email || (email && !validator.isEmail(email))) {
+      errors.email = 'Enter a valid email';
+    }
+
+    if (!password || (password && validator.isEmpty(password.trim()))) {
+      errors.password = 'password cannot be empty';
+    }
+
+    if (password && password.length < 6) {
+      errors.password = 'password must be at least 6 characters long';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
 }

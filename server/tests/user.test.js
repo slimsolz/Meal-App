@@ -13,14 +13,6 @@ const Caterer = {
   role: 'caterer'
 };
 
-const Customer = {
-  id: 2,
-  email: 'user2@gmail.com',
-  username: 'user2',
-  password: 'user2password',
-  role: 'customer'
-};
-
 let catererToken;
 
 describe('Users', () => {
@@ -46,7 +38,7 @@ describe('POST /auth/signup', () => {
         done();
       });
   });
-/*  it('should return 409 if email exists', (done) => {
+  it('should return 409 if email exists', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -61,6 +53,49 @@ describe('POST /auth/signup', () => {
         expect(res.body.message).to.equal('Account exists');
         done();
       });
-  }); */
+  }); 
+});
+
+describe('POST /auth/signin', () => {
+  it('should successfully log in a user', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'user1@gmail.com',
+        password: 'user1password'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('logged in');
+        expect(res.body.user.username).to.equal('user1');
+        done();
+      });
+  });
+  it('should return 401 for invalid email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'user9@gmail.com',
+        password: 'user1password'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.equal('Incorrect Email or password');
+        done();
+      });
+  });
+  it('should return 401 for wrong password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'user1@gmail.com',
+        password: 'user9pass'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.equal('Incorrect Email or password');
+        done();
+      });
+  });
 });
 
