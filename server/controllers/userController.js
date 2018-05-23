@@ -21,8 +21,6 @@ export default class UserController {
           });
         }
         return null;
-      }).catch((err) => {
-        console.log(err);
       });
 
     const hash = bcrypt.hashSync(password, 10);
