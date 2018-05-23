@@ -20,8 +20,14 @@ export default class UserController {
             message: 'Account exists'
           });
         }
+        return null;
+      }).catch((err) => {
+        res.status(500).json({
+          status: 'error',
+          message: 'Server error'
+        });
       });
-
+       
     const hash = bcrypt.hashSync(password, 10);
     User.create({
       email: email.trim().toLowerCase(),
@@ -33,12 +39,12 @@ export default class UserController {
       return res.status(201).json({
         status: 'success',
         message: 'User created and logged in',
+        token,
         user: {
           username: user.username,
           email: user.email,
           role: user.role
         },
-        token
       });
     });
   }

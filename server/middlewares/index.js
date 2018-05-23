@@ -1,4 +1,4 @@
-import { isEmail, validator } from 'validator';
+import validator from 'validator';
 import isEmpty from 'lodash.isempty';
 import jwt from 'jsonwebtoken';
 import isInt from 'validator/lib/isInt';
@@ -17,15 +17,15 @@ export default class Middleware {
       errors.message = 'All fields are required';
     }
 
-    if (email && !isEmail(email)) {
+    if (email && !validator.isEmail(email)) {
       errors.email = 'Invalid Email';
     }
 
-    if (username && (validator.isEmpty(username) || isInt(username))) {
+    if (username && validator.isEmpty(username.trim())) {
       errors.username = 'Enter a valid username';
     }
 
-    if (!password || (password && validator.isEmpty(password))) {
+    if (!password || (password && validator.isEmpty(password.trim()))) {
       errors.password = 'password cannot be empty';
     }
 
@@ -33,11 +33,11 @@ export default class Middleware {
       errors.password = 'password must be at least 6 characters long';
     }
 
-    if (role && (validator.isEmpty(role) || isInt(username))) {
+    if (role && (validator.isEmpty(role.trim()) || isInt(role))) {
       errors.role = 'You must choose between caterer or a customer';
     }
 
-    if (!isEmpty(errors)) {
+    if (isEmpty(errors)) {
       return next();
     }
 
