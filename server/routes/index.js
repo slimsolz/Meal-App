@@ -1,4 +1,6 @@
 import express from 'express';
+import UserController from '../controllers/userController';
+import Middleware from '../middlewares';
 
 const router = express.Router();
 
@@ -9,6 +11,9 @@ router.get('/', (req, res, next) => {
     message: 'Welcome to book-a-meal app'
   });
 });
+
+// User
+router.post('/auth/signup', Middleware.validateSignUp, UserController.signUp);
 
 // 404 page
 router.get('*', (req, res) => {

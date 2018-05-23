@@ -3,7 +3,10 @@ node_js:
   - "stable"
 env:
   - NODE_ENV=test
+services: 
+  - postgresql
 before_script:
+  - psql -c 'create database mealapp_test;' -U postgres
   - chmod 0777 ./node_modules/.bin/mocha
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
