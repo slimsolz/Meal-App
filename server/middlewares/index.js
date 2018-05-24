@@ -20,6 +20,34 @@ export default class Middleware {
       return next();
     });
   }
+  
+  static checkRole(req, res, next) {
+    const { userId } = req;
+
+    User.findOne({ where: { id: userId, role: 'caterer' } })
+      .then((user) => {
+        if (!user) {
+          return res.status(401).json({
+            status: 'error',
+            message: 'You do not have permission to perfom this action'
+          });
+        }
+        return next();
+      });
+  }
+
+  static validateParams(req, res, next) {
+    const reqId = req.params.id;
+    const id = isInt(reqId);
+
+    if (!id) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Invalid id params'
+      });
+    }
+    next();
+  }
 
   static validateSignUp(req, res, next) {
     const errors = {};
