@@ -76,5 +76,33 @@ export default class Middleware {
     });
   }
 
+  static validateAddMeal(req, res, next) {
+    const {
+      name, price, imgPath
+    } = req.body;
+    const errors = {};
+
+    if (!name || !isNaN(name) || (name && validator.isEmpty(name))) {
+      errors.name = 'Enter a valid name';
+    }
+
+    if (!price || (price && isNaN(price))) {
+      errors.price = 'Invalid Price';
+    }
+
+    if (!imgPath || !isNaN(imgPath) || (imgPath && validator.isEmpty(imgPath))) {
+      errors.imgPath = 'Valid Image path is required';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
+
 
 }
