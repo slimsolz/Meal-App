@@ -66,4 +66,20 @@ export default class MealController {
         });
       });
   }
+
+  static deleteMeal(req, res) {
+    Meal.destroy({ where : { id: req.params.id } })
+      .then((deletedStatus) => {
+       if (!deletedStatus) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Meal not found'
+        });
+        }
+        return res.status(200).json({
+          status: 'status',
+          message: 'Meal Deleted Successfully'
+        });
+      });
+  }
 }
