@@ -9,14 +9,14 @@ const { User } = Model;
 export default class Middleware {
   static isLoggedIn(req, res, next) {
     const token = req.body.token || req.query.token || req.get('Authorization').slice(7);
-    jwt.verfiy(token, process.env.SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
         return res.status(401).json({
           status: 'error',
           message: 'User not logged in'
         });
       }
-      req.userID = decoded.id;
+      req.userId = decoded.id;
       return next();
     });
   }
@@ -32,7 +32,7 @@ export default class Middleware {
             message: 'You do not have permission to perfom this action'
           });
         }
-        return next();
+        next();
       });
   }
 
@@ -46,7 +46,7 @@ export default class Middleware {
         message: 'Invalid id params'
       });
     }
-    next();
+    return next();
   }
 
   static validateSignUp(req, res, next) {
@@ -55,15 +55,11 @@ export default class Middleware {
       email, username, password, role
     } = req.body;
 
-    if (!email || !username) {
-      errors.message = 'All fields are required';
-    }
-
-    if (email && !validator.isEmail(email)) {
+    if (!email || (email && !validator.isEmail(email))) {
       errors.email = 'Invalid Email';
     }
 
-    if (username && validator.isEmpty(username.trim())) {
+    if (!username || (username && validator.isEmpty(username.trim()))) {
       errors.username = 'Enter a valid username';
     }
 
@@ -75,7 +71,7 @@ export default class Middleware {
       errors.password = 'password must be at least 6 characters long';
     }
 
-    if (role && (validator.isEmpty(role.trim()) || isInt(role))) {
+    if (!role || (role && (validator.isEmpty(role.trim()) || isInt(role)))) {
       errors.role = 'You must choose between caterer or a customer';
     }
 
