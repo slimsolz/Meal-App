@@ -18,7 +18,7 @@ router.post('/auth/signup', Middleware.validateSignUp, UserController.signUp);
 router.post('/auth/signin', Middleware.validateSignIn, UserController.signIn);
 
 // Meal
-router.post('/meals', Middleware.validateAddMeal, MealController.addMeal);
+router.post('/meals', Middleware.isLoggedIn, Middleware.checkRole, Middleware.validateAddMeal, MealController.addMeal);
 
 // 404 page
 router.get('*', (req, res) => {

@@ -20,7 +20,7 @@ export default class Middleware {
       return next();
     });
   }
-  
+
   static checkRole(req, res, next) {
     const { userId } = req;
 
@@ -144,6 +144,4 @@ export default class Middleware {
       errors
     });
   }
-
-
 }
