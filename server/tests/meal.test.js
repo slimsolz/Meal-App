@@ -93,3 +93,30 @@ describe('PUT /meals', () => {
       });
   });
 });
+describe('DELETE /meals', () => {
+  it('should send 400 if meal doesnt exist', (done) => {
+    chai.request(app)
+      .delete('/api/v1/meals/10')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .send({
+        name: 'update',
+        price: 380,
+        imgPath: 'update.png'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Meal not found');
+        done();
+      });
+  });
+  it('should return 200 for successful update', (done) => {
+    chai.request(app)
+      .delete('/api/v1/meals/1')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Meal Deleted Successfully');
+        done();
+      });
+  });
+});

@@ -155,4 +155,4 @@ describe('Validate params', () => {
         done();
       });
   });
-}); 
+});
