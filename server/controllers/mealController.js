@@ -15,19 +15,19 @@ export default class MealController {
           message: 'Meal already exists'
         });
       }
-    });
 
-    Meal.create({
-      name, price, imgPath
-    }).then((meal) => {
-      res.status(201).json({
-        status: 'success',
-        message: 'Meal added',
-        meal: {
-          name: meal.name,
-          price: meal.price,
-          imgPath: meal.imgPath
-        }
+      Meal.create({
+        name, price, imgPath
+      }).then((newMeal) => {
+        res.status(201).json({
+          status: 'success',
+          message: 'Meal added',
+          meal: {
+            name: newMeal.name,
+            price: newMeal.price,
+            imgPath: newMeal.imgPath
+          }
+        });
       });
     });
   }

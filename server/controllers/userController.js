@@ -20,27 +20,27 @@ export default class UserController {
             message: 'Account exists'
           });
         }
-      });
 
-    const hash = bcrypt.hashSync(password, 10);
-    User.create({
-      email: email.trim().toLowerCase(),
-      username,
-      password: hash,
-      role
-    }).then((user) => {
-      const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
-      return res.status(201).json({
-        status: 'success',
-        message: 'User created and logged in',
-        token,
-        user: {
-          username: user.username,
-          email: user.email,
-          role: user.role
-        },
+        const hash = bcrypt.hashSync(password, 10);
+        User.create({
+          email: email.trim().toLowerCase(),
+          username,
+          password: hash,
+          role
+        }).then((user) => {
+          const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '24h' });
+          return res.status(201).json({
+            status: 'success',
+            message: 'User created and logged in',
+            token,
+            user: {
+              username: user.username,
+              email: user.email,
+              role: user.role
+            },
+          });
+        });
       });
-    });
   }
 
   /* Sign in */

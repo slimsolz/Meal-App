@@ -49,7 +49,6 @@ describe('POST /meals', () => {
       .post('/api/v1/meals')
       .set('Authorization', `Bearer ${catererToken}`)
       .send({
-        id: 2,
         name: 'Beans Test',
         price: 250,
         imgPath: 'images/test.png'
@@ -57,6 +56,16 @@ describe('POST /meals', () => {
       .end((err, res) => {
         expect(res).to.have.status(409);
         expect(res.body.message).to.equal('Meal already exists');
+        done();
+      });
+  });
+  it('should Successfully get all meals', (done) => {
+    chai.request(app)
+      .get('/api/v1/meals')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Meals Available');
         done();
       });
   });
@@ -89,6 +98,7 @@ describe('PUT /meals', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal('Meal updated Successfully');
+        expect(res.body.updatedMeal).to.be.an('object');
         done();
       });
   });
@@ -116,6 +126,18 @@ describe('DELETE /meals', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal('Meal Deleted Successfully');
+        done();
+      });
+  });
+});
+describe('GET /meals', () => {
+  it('should return 400 as meal already exists', (done) => {
+    chai.request(app)
+      .get('/api/v1/meals')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('No meal available');
         done();
       });
   });
