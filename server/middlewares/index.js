@@ -35,7 +35,7 @@ export default class Middleware {
         next();
       });
   }
-/*
+
   static validateParams(req, res, next) {
     const reqId = req.params.id;
     const id = isInt(reqId);
@@ -48,7 +48,7 @@ export default class Middleware {
     }
     return next();
   }
-*/
+
   static validateSignUp(req, res, next) {
     const errors = {};
     const {

@@ -50,7 +50,7 @@ before((done) => {
 });
 
 describe('Validate Sign Up', () => {
-   it('should send error if email is not valid', (done) => {
+  it('should send error if email is not valid', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -62,7 +62,7 @@ describe('Validate Sign Up', () => {
         expect(res.body.errors.password).to.equal('password must be at least 6 characters long');
         done();
       });
-  });  
+  });
   it('should send error if role is not valid', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -135,7 +135,7 @@ describe('POST /meals', () => {
         expect(res).to.have.status(401);
         done();
       });
-  }); 
+  });
 });
 
 // validParam Middleware

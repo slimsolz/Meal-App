@@ -11,8 +11,8 @@ module.exports = {
   }, {
     email: 'mainuser@gmail.com',
     username: 'mainuser',
-    password: bcrypt.hashSync('password111', 10),    
-    role: 'customer',    
+    password: bcrypt.hashSync('password111', 10),
+    role: 'customer',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }]),
