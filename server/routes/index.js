@@ -21,6 +21,7 @@ router.post('/auth/signin', Middleware.validateSignIn, UserController.signIn);
 router.post('/meals', Middleware.isLoggedIn, Middleware.checkRole, Middleware.validateAddMeal, MealController.addMeal);
 router.put('/meals/:id', Middleware.isLoggedIn, Middleware.validateParams, Middleware.checkRole, Middleware.validateAddMeal, MealController.updateMeal);
 router.delete('/meals/:id', Middleware.isLoggedIn, Middleware.validateParams, Middleware.checkRole, MealController.deleteMeal);
+router.get('/meals', Middleware.isLoggedIn, Middleware.checkRole, MealController.getMeals);
 
 // 404 page
 router.get('*', (req, res) => {
