@@ -7,6 +7,19 @@ import Model from '../models';
 const { User } = Model;
 
 export default class Middleware {
+  static isLoggedIn(req, res, next) {
+    const token = req.body.token || req.query.token || req.get('Authorization').slice(7);
+    jwt.verfiy(token, process.env.SECRET, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({
+          status: 'error',
+          message: 'User not logged in'
+        });
+      }
+      req.userID = decoded.id;
+      return next();
+    });
+  }
 
   static validateSignUp(req, res, next) {
     const errors = {};
