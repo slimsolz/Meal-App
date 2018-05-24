@@ -7,12 +7,14 @@
     "start-dev": "nodemon server/app.js --exec babel-node",
     "build": "babel server -d server/dist --ignore server/dist",
     "serve": "node dist/index.js",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "seed-add": "sequelize seed:create --name users",
+    "seed": "sequelize db:seed:all",
+    "migrate-undo": "sequelize db:migrate:undo:all",
+    "migrate": "npm run migrate-undo && sequelize db:migrate && npm run seed",
     "test": "cross-env NODE_ENV=test SECRET=testsecret nyc --reporter=html --reporter=text mocha server/tests/ --exit --compilers js:babel-core/register",
     "test-watch": "nodemon --exec \"npm test\"",
-    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "migrate-undo": "sequelize db:migrate:undo:all",
-    "migrate": "sequelize db:migrate"
+    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test"
   },
   "nyc": {
     "exclude": [

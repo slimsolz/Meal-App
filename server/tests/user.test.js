@@ -6,26 +6,11 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 const Caterer = {
-  id: 1,
   email: 'user1@gmail.com',
   username: 'user1',
   password: 'user1password',
   role: 'caterer'
 };
-
-let catererToken;
-
-describe('Users', () => {
-  before((done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signup')
-      .send(Caterer)
-      .end((err, res) => {
-        catererToken = res.body.token;
-        done();
-      });
-  });
-});
 
 describe('POST /auth/signup', () => {
   it('should create a new user', (done) => {

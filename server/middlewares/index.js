@@ -35,7 +35,7 @@ export default class Middleware {
         next();
       });
   }
-
+/*
   static validateParams(req, res, next) {
     const reqId = req.params.id;
     const id = isInt(reqId);
@@ -43,12 +43,12 @@ export default class Middleware {
     if (!id) {
       return res.status(400).json({
         status: 'error',
-        message: 'Invalid id params'
+        message: 'Invalid params'
       });
     }
     return next();
   }
-
+*/
   static validateSignUp(req, res, next) {
     const errors = {};
     const {

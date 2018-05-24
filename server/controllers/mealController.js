@@ -29,11 +29,6 @@ export default class MealController {
           imgPath: meal.imgPath
         }
       });
-    }).catch((err) => {
-      res.status(500).json({
-        status: 'error',
-        message: 'Server Error'
-      });
     });
   }
 }
