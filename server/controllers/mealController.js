@@ -48,15 +48,15 @@ export default class MealController {
         }
 
         meal.update({
-          name: name || meal.name,
-          price: price || meal.price,
-          imgPath: imgPath || meal.imgPath
+          name,
+          price,
+          imgPath
         }).then((updatedMeal) => {
           if (updatedMeal) {
             return res.status(200).json({
               status: 'success',
               message: 'Meal updated Successfully',
-              meal: {
+              updatedMeal: {
                 name: updatedMeal.name,
                 price: updatedMeal.price,
                 imgPath: updatedMeal.imgPath

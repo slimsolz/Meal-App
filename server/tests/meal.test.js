@@ -61,3 +61,35 @@ describe('POST /meals', () => {
       });
   });
 });
+describe('PUT /meals', () => {
+  it('should send 400 if meal doesnt exist', (done) => {
+    chai.request(app)
+      .put('/api/v1/meals/10')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .send({
+        name: 'update',
+        price: 380,
+        imgPath: 'update.png'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Meal not found');
+        done();
+      });
+  });
+  it('should return 200 for successful update', (done) => {
+    chai.request(app)
+      .put('/api/v1/meals/1')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .send({
+        name: 'Beans Update',
+        price: 500,
+        imgPath: 'beansUpdate/test.png'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Meal updated Successfully');
+        done();
+      });
+  });
+});

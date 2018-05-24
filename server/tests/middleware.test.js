@@ -139,15 +139,20 @@ describe('POST /meals', () => {
 });
 
 // validParam Middleware
-/* describe('GET meals/', () => {
+describe('Validate params', () => {
   it('should return 400', (done) => {
     chai.request(app)
-      .get('/api/v1/meals/2n3')
+      .put('/api/v1/meals/xxx')
+      .set('Authorization', `Bearer ${customertoken}`)
+      .send({
+        name: 'Beans Update',
+        price: 500,
+        imgPath: 'beansUpdate/test.png'
+      })
       .end((err, res) => {
-        expect(res)
-          .to.have.status(400);
-        expect(res.body.message).to.eqls('Invalid params');
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Invalid params');
         done();
       });
   });
-}); */
+}); 
