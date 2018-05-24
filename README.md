@@ -8,14 +8,14 @@ Book-A-Meal is an application that allows customers to make food orders and help
 ### Features
 - User Sign up: `POST api/v1/auth/signup`
 - User Sign in: `POST api/v1/auth/signin`
-- List all meals: `GET api/v1/meals/:id`
+- List all meals: `GET api/v1/meals`
 - Add new meal: `POST api/v1/meals`
-- Update a meal: `PUT api/v1/meals/:id`
-- Delete a meal: `DELETE api/v1/meals/:id`
+- Update a meal: `PUT api/v1/meals/:mealId`
+- Delete a meal: `DELETE api/v1/meals/:mealId`
 - Set menu for the day: `POST api/v1/menu`
 - Get menu for the day: `GET api/v1/menu`
 - Place an Order: `POST api/v1/orders`
-- Modify an Order: `PUT api/v1/orders/:id`
+- Modify an Order: `PUT api/v1/orders/:orderId`
 - Get orders: `GET api/v1/orders` 
 
 #### Dependencies

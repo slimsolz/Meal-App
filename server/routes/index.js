@@ -1,5 +1,6 @@
 import express from 'express';
 import UserController from '../controllers/userController';
+import MealController from '../controllers/mealController';
 import Middleware from '../middlewares';
 
 const router = express.Router();
@@ -15,6 +16,9 @@ router.get('/', (req, res, next) => {
 // User
 router.post('/auth/signup', Middleware.validateSignUp, UserController.signUp);
 router.post('/auth/signin', Middleware.validateSignIn, UserController.signIn);
+
+// Meal
+router.post('/meals', Middleware.validateAddMeal, MealController.addMeal);
 
 // 404 page
 router.get('*', (req, res) => {

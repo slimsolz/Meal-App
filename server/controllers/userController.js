@@ -20,7 +20,6 @@ export default class UserController {
             message: 'Account exists'
           });
         }
-        return null;
       });
 
     const hash = bcrypt.hashSync(password, 10);

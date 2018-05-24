@@ -7,6 +7,7 @@ import Model from '../models';
 const { User } = Model;
 
 export default class Middleware {
+
   static validateSignUp(req, res, next) {
     const errors = {};
     const {
@@ -74,4 +75,6 @@ export default class Middleware {
       errors
     });
   }
+
+
 }

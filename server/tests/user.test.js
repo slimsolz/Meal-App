@@ -53,7 +53,7 @@ describe('POST /auth/signup', () => {
         expect(res.body.message).to.equal('Account exists');
         done();
       });
-  }); 
+  });
 });
 
 describe('POST /auth/signin', () => {
