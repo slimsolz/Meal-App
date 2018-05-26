@@ -98,7 +98,6 @@ describe('PUT /meals', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal('Meal updated Successfully');
-        expect(res.body.updatedMeal).to.be.an('object');
         done();
       });
   });

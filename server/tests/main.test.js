@@ -20,7 +20,7 @@ describe('GET /', () => {
 
 // 404 page not found
 describe('GET /xoxo', () => {
-  it('should returon 404 and an error message', (done) => {
+  it('should retun 404 and Page not found', (done) => {
     chai.request(app)
       .get('/api/v1/xyz')
       .end((err, res) => {
