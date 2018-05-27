@@ -26,6 +26,7 @@ router.get('/meals', Middleware.isLoggedIn, Middleware.checkRole, MealController
 
 // Menu
 router.post('/menu', Middleware.isLoggedIn, Middleware.checkRole, MenuController.setMenu);
+router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
 
 // 404 page
 router.get('*', (req, res) => {

@@ -12,6 +12,12 @@ const Caterer = {
   role: 'caterer'
 };
 
+const Meal = {
+  name: 'Beans Test',
+  price: 350,
+  imgPath: 'images/beansTest.png'
+};
+
 let catererToken;
 
 before((done) => {
@@ -24,13 +30,15 @@ before((done) => {
     });
 });
 
-const Meal = {
-  id: 1,
-  name: 'Beans Test',
-  price: 350,
-  imgPath: 'images/beansTest.png'
-};
-
+after((done) => {
+  chai.request(app)
+    .post('/api/v1/meals')
+    .set('Authorization', `Bearer ${catererToken}`)
+    .send(Meal)
+    .end((err, res) => {
+      done();
+    });
+});
 
 describe('POST /meals', () => {
   it('should add a new meal', (done) => {
