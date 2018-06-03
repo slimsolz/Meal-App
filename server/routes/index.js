@@ -1,6 +1,7 @@
 import express from 'express';
 import UserController from '../controllers/userController';
 import MealController from '../controllers/mealController';
+import MenuController from '../controllers/menuController';
 import Middleware from '../middlewares';
 
 const router = express.Router();
@@ -22,6 +23,10 @@ router.post('/meals', Middleware.isLoggedIn, Middleware.checkRole, Middleware.va
 router.put('/meals/:id', Middleware.isLoggedIn, Middleware.validateParams, Middleware.checkRole, Middleware.validateAddMeal, MealController.updateMeal);
 router.delete('/meals/:id', Middleware.isLoggedIn, Middleware.validateParams, Middleware.checkRole, MealController.deleteMeal);
 router.get('/meals', Middleware.isLoggedIn, Middleware.checkRole, MealController.getMeals);
+
+// Menu
+router.post('/menu', Middleware.isLoggedIn, Middleware.checkRole, MenuController.setMenu);
+router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
 
 // 404 page
 router.get('*', (req, res) => {

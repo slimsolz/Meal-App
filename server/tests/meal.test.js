@@ -31,6 +31,18 @@ const Meal = {
   imgPath: 'images/beansTest.png'
 };
 
+after((done) => {
+  chai.request(app)
+    .post('/api/v1/meals')
+    .send({
+      name: 'Rice Test',
+      price: 300,
+      imgPath: 'images/riceTest.png'
+    })
+    .end((err, res) => {
+      done();
+    });
+});
 
 describe('POST /meals', () => {
   it('should add a new meal', (done) => {
