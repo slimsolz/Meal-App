@@ -29,4 +29,22 @@ describe('GET /xoxo', () => {
         done();
       });
   });
+  it('should returon 404 and an error message', (done) => {
+    chai.request(app)
+      .put('/api/v1/xyz')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.be.equal('404 Page not found');
+        done();
+      });
+  });
+  it('should returon 404 and an error message', (done) => {
+    chai.request(app)
+      .post('/api/v1/xyz')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.be.equal('404 Page not found');
+        done();
+      });
+  });
 });

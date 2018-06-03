@@ -58,3 +58,41 @@ describe('POST /orders', () => {
       });
   });
 });
+
+describe('PUT /orders', () => {
+  it('should send 400 if meal doesnt exist', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/10')
+      .set('Authorization', `Bearer ${caterer0Token}`)
+      .send({
+        quantity: 3,
+        total: 1000,
+        deliveryAddress: 'EPIC Test',
+        mealId: 10,
+        userId: 1
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Order not found');
+        done();
+      });
+  });
+  it('should return 200 for successful update', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .set('Authorization', `Bearer ${caterer0Token}`)
+      .send({
+        quantity: 3,
+        total: 1500,
+        deliveryAddress: 'EPIC Towers Update',
+        mealId: 2,
+        userId: 1
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('order modified successfully');
+        expect(res.body.modifiedOrder).to.be.an('object');
+        done();
+      });
+  });
+});

@@ -36,6 +36,23 @@ export default class Middleware {
       });
   }
 
+  /*  static checkOrderTime(req, res, next) {
+    const businessTime = {
+      start: 8,
+      end: 22
+    };
+    const time = new Date();
+    const hour = time.getHours();
+
+    if (businessTime.start > hour || businessTime.end <= hour) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Sorry we are currently closed.. services hours 8am - 6pm'
+      });
+    }
+    return next();
+  } */
+
   static validateParams(req, res, next) {
     const reqId = req.params.id;
     const id = isInt(reqId);

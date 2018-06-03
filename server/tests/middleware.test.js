@@ -156,3 +156,21 @@ describe('Validate params', () => {
       });
   });
 });
+
+/* describe('Validate time of order', () => {
+  it('should return 400', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders')
+      .set('Authorization', `Bearer ${customertoken}`)
+      .send({
+        name: 'Beans Update',
+        price: 500,
+        imgPath: 'beansUpdate/test.png'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Invalid params');
+        done();
+      });
+  });
+}); */

@@ -31,9 +31,24 @@ router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
 
 // Order
 router.post('/orders', Middleware.isLoggedIn, OrderController.placeOrder);
+router.put('/orders/:id', Middleware.isLoggedIn, Middleware.validateParams, OrderController.modifyOrder);
 
 // 404 page
 router.get('*', (req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: '404 Page not found'
+  });
+});
+
+router.put('*', (req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: '404 Page not found'
+  });
+});
+
+router.post('*', (req, res) => {
   res.status(404).json({
     status: 'error',
     message: '404 Page not found'
