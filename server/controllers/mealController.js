@@ -51,19 +51,15 @@ export default class MealController {
           name,
           price,
           imgPath
-        }).then((updatedMeal) => {
-          if (updatedMeal) {
-            return res.status(200).json({
-              status: 'success',
-              message: 'Meal updated Successfully',
-              updatedMeal: {
-                name: updatedMeal.name,
-                price: updatedMeal.price,
-                imgPath: updatedMeal.imgPath
-              }
-            });
+        }).then(updatedMeal => res.status(200).json({
+          status: 'success',
+          message: 'Meal updated Successfully',
+          updatedMeal: {
+            name: updatedMeal.name,
+            price: updatedMeal.price,
+            imgPath: updatedMeal.imgPath
           }
-        });
+        }));
       });
   }
 
