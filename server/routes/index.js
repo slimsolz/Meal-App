@@ -2,6 +2,7 @@ import express from 'express';
 import UserController from '../controllers/userController';
 import MealController from '../controllers/mealController';
 import MenuController from '../controllers/menuController';
+import OrderController from '../controllers/orderController';
 import Middleware from '../middlewares';
 
 const router = express.Router();
@@ -27,6 +28,9 @@ router.get('/meals', Middleware.isLoggedIn, Middleware.checkRole, MealController
 // Menu
 router.post('/menu', Middleware.isLoggedIn, Middleware.checkRole, MenuController.setMenu);
 router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
+
+// Order
+router.post('/orders', Middleware.isLoggedIn, OrderController.placeOrder);
 
 // 404 page
 router.get('*', (req, res) => {
