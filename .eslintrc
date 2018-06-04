@@ -10,7 +10,7 @@
     "no-console": 0,
     "no-restricted-globals": 0,
     "consistent-return": 0,
-    "no-unused-vars": [1, { "argsIgnorePattern": "res|next|^err|Sequelize" }],
+    "no-unused-vars": [1, { "argsIgnorePattern": "res|next|^err|Sequelize|models" }],
     "comma-dangle": 0,
     "import/no-unresolved": "off",
     "import/extensions": "off",
