@@ -61,7 +61,7 @@ describe('POST /orders', () => {
         quantity: 2,
         total: 700,
         deliveryAddress: 'EPIC Towers Test',
-        mealId: 0,
+        mealId: 200,
         userId: 1
       })
       .end((err, res) => {

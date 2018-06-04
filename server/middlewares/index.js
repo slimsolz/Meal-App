@@ -157,4 +157,66 @@ export default class Middleware {
       errors
     });
   }
+
+  static validateOrder(req, res, next) {
+    const {
+      quantity, total, deliveryAddress, mealId
+    } = req.body;
+    const errors = {};
+
+    if (!quantity || (quantity && isNaN(quantity))) {
+      errors.quantity = 'Enter a valid quantity';
+    }
+
+    if (!total || (total && isNaN(total))) {
+      errors.total = 'Invalid total';
+    }
+
+    if (!deliveryAddress || !isNaN(deliveryAddress)
+      || (deliveryAddress && validator.isEmpty(deliveryAddress))) {
+      errors.deliveryAddress = 'Valid delivery address is required';
+    }
+
+    if (!mealId || (mealId && isNaN(mealId))) {
+      errors.mealId = 'Invalid mealId';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
+
+  static validateOrderUpdate(req, res, next) {
+    const {
+      quantity, total, deliveryAddress
+    } = req.body;
+    const errors = {};
+
+    if (!quantity || (quantity && isNaN(quantity))) {
+      errors.quantity = 'Enter a valid quantity';
+    }
+
+    if (!total || (total && isNaN(total))) {
+      errors.total = 'Invalid total';
+    }
+
+    if (!deliveryAddress || !isNaN(deliveryAddress)
+      || (deliveryAddress && validator.isEmpty(deliveryAddress))) {
+      errors.deliveryAddress = 'Valid delivery address is required';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
 }

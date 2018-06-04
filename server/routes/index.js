@@ -30,8 +30,8 @@ router.post('/menu', Middleware.isLoggedIn, Middleware.checkRole, MenuController
 router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
 
 // Order
-router.post('/orders', Middleware.isLoggedIn, OrderController.placeOrder);
-router.put('/orders/:id', Middleware.isLoggedIn, Middleware.validateParams, OrderController.modifyOrder);
+router.post('/orders', Middleware.isLoggedIn, Middleware.validateOrder, OrderController.placeOrder);
+router.put('/orders/:id', Middleware.isLoggedIn, Middleware.validateParams, Middleware.validateOrderUpdate, OrderController.modifyOrder);
 router.get('/orders', Middleware.isLoggedIn, Middleware.checkRole, OrderController.getAvailableOrder);
 
 // 404 page

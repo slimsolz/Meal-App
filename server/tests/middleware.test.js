@@ -174,3 +174,31 @@ describe('Validate params', () => {
       });
   });
 }); */
+
+describe('Validate Orders', () => {
+  it('should send an error if error occurs', (done) => {
+    chai.request(app)
+      .post('/api/v1/orders')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .send({})
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.errors).to.be.an('object');
+        done();
+      });
+  });
+});
+
+describe('Validate Orders Update', () => {
+  it('should send an error if error occurs', (done) => {
+    chai.request(app)
+      .put('/api/v1/orders/1')
+      .set('Authorization', `Bearer ${catererToken}`)
+      .send({})
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.errors).to.be.an('object');
+        done();
+      });
+  });
+});
