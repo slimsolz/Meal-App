@@ -36,6 +36,23 @@ export default class Middleware {
       });
   }
 
+  /*  static checkOrderTime(req, res, next) {
+    const businessTime = {
+      start: 8,
+      end: 22
+    };
+    const time = new Date();
+    const hour = time.getHours();
+
+    if (businessTime.start > hour || businessTime.end <= hour) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Sorry we are currently closed.. services hours 8am - 6pm'
+      });
+    }
+    return next();
+  } */
+
   static validateParams(req, res, next) {
     const reqId = req.params.id;
     const id = isInt(reqId);
@@ -129,6 +146,68 @@ export default class Middleware {
 
     if (!imgPath || !isNaN(imgPath) || (imgPath && validator.isEmpty(imgPath))) {
       errors.imgPath = 'Valid Image path is required';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
+
+  static validateOrder(req, res, next) {
+    const {
+      quantity, total, deliveryAddress, mealId
+    } = req.body;
+    const errors = {};
+
+    if (!quantity || (quantity && isNaN(quantity))) {
+      errors.quantity = 'Enter a valid quantity';
+    }
+
+    if (!total || (total && isNaN(total))) {
+      errors.total = 'Invalid total';
+    }
+
+    if (!deliveryAddress || !isNaN(deliveryAddress)
+      || (deliveryAddress && validator.isEmpty(deliveryAddress))) {
+      errors.deliveryAddress = 'Valid delivery address is required';
+    }
+
+    if (!mealId || (mealId && isNaN(mealId))) {
+      errors.mealId = 'Invalid mealId';
+    }
+
+    if (isEmpty(errors)) {
+      return next();
+    }
+
+    return res.status(400).json({
+      status: 'error',
+      errors
+    });
+  }
+
+  static validateOrderUpdate(req, res, next) {
+    const {
+      quantity, total, deliveryAddress
+    } = req.body;
+    const errors = {};
+
+    if (!quantity || (quantity && isNaN(quantity))) {
+      errors.quantity = 'Enter a valid quantity';
+    }
+
+    if (!total || (total && isNaN(total))) {
+      errors.total = 'Invalid total';
+    }
+
+    if (!deliveryAddress || !isNaN(deliveryAddress)
+      || (deliveryAddress && validator.isEmpty(deliveryAddress))) {
+      errors.deliveryAddress = 'Valid delivery address is required';
     }
 
     if (isEmpty(errors)) {

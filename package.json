@@ -10,6 +10,7 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "seed-add": "sequelize seed:create --name users",
     "seed": "sequelize db:seed:all",
+    "model-create": "sequelize model:create --name MealMenu --attributes",
     "migrate-undo": "sequelize db:migrate:undo:all",
     "migrate": "npm run migrate-undo && sequelize db:migrate && npm run seed",
     "test": "cross-env NODE_ENV=test SECRET=testsecret nyc --reporter=html --reporter=text mocha server/tests/ --exit --compilers js:babel-core/register",
