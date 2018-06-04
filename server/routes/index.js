@@ -32,6 +32,7 @@ router.get('/menu', Middleware.isLoggedIn, MenuController.getMenu);
 // Order
 router.post('/orders', Middleware.isLoggedIn, OrderController.placeOrder);
 router.put('/orders/:id', Middleware.isLoggedIn, Middleware.validateParams, OrderController.modifyOrder);
+router.get('/orders', Middleware.isLoggedIn, Middleware.checkRole, OrderController.getAvailableOrder);
 
 // 404 page
 router.get('*', (req, res) => {

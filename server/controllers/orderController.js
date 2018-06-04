@@ -66,4 +66,30 @@ export default class OrderController {
         }));
       });
   }
+
+  static getAvailableOrder(req, res) {
+    Order.findAll({
+      where: {
+        status: 'PENDING'
+      },
+      include: [{
+        model: Meal,
+        attributes: ['name']
+      }],
+      attributes: ['quantity', 'total', 'deliveryAddress', 'status']
+    }).then((orders) => {
+      if (orders.length === 0) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'No order available'
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        message: 'Current Orders',
+        orders
+      });
+    });
+  }
 }

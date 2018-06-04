@@ -22,6 +22,19 @@ before((done) => {
     });
 });
 
+describe('GET /orders', () => {
+  it('should return 400 no order exists', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders')
+      .set('Authorization', `Bearer ${caterer0Token}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('No order available');
+        done();
+      });
+  });
+});
+
 describe('POST /orders', () => {
   it('should send 201 and post an order', (done) => {
     chai.request(app)
@@ -96,3 +109,17 @@ describe('PUT /orders', () => {
       });
   });
 });
+
+describe('GET /orders', () => {
+  it('should Successfully get all orders', (done) => {
+    chai.request(app)
+      .get('/api/v1/orders')
+      .set('Authorization', `Bearer ${caterer0Token}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Current Orders');
+        done();
+      });
+  });
+});
+
