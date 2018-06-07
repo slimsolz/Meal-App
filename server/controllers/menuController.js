@@ -20,14 +20,16 @@ export default class MenuController {
   static getMenu(req, res) {
     Menu.findAll({
       where: { available: true },
+      attributes: ['available'],
       include: [{
         model: Meal,
-        attributes: ['id', 'name', 'price', 'imgPath']
+        attributes: ['name', 'price', 'imgPath']
       }]
     })
       .then((menu) => {
         res.status(200).json({
           status: 'success',
+          message: 'Menu for the day',
           menu
         });
       });
