@@ -80,7 +80,9 @@ export default class MealController {
   }
 
   static getMeals(req, res) {
-    Meal.findAll({}).then((meals) => {
+    Meal.findAll({
+      attributes: ['name', 'price', 'imgPath', 'createdAt']
+    }).then((meals) => {
       if (meals.length === 0) {
         return res.status(400).json({
           status: 'error',
